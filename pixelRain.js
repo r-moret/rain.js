@@ -26,11 +26,15 @@ const spawnDrop = (xPixel, yPixel, size, color, ctx) => {
     }
 }
 
-const spawnRain = (dropLimit, dropSize, fallSpeed, ctx) => {
+const spawnRain = ({dropSize, fallSpeed, ctx}) => {
+    const newInitialAltitude = () => randomNormal({mean: 2, std: 8})
+    const newAltitude = () => randomNormal({mean: -2, std: 6, max: 0})
+    const newEnd = () => randomNormal({mean: 15, std: 4})
+
     const nColumns = Math.floor(ctx.canvas.width / dropSize)
     let drops = Array.from(Array(nColumns), () => ({
-        altitude: 0,
-        end: dropLimit,
+        altitude: newInitialAltitude(),
+        end: newEnd(),
         color: COLORS.grey,
     }))
 
@@ -41,8 +45,8 @@ const spawnRain = (dropLimit, dropSize, fallSpeed, ctx) => {
             let drop = drops[col]
 
             if (drop.altitude > drop.end) {
-                drop.altitude = 0
-                // New end limit
+                drop.altitude = newAltitude()
+                drop.end = newEnd()
             }
 
             spawnDrop(col, drop.altitude, dropSize, drop.color, ctx)
@@ -51,4 +55,24 @@ const spawnRain = (dropLimit, dropSize, fallSpeed, ctx) => {
     }, fallSpeed)
 }
 
-spawnRain(30, PIXEL_SIZE, FALL_SPEED, ctx)
+const randomNormal = ({mean, std, min, max}) => {
+    // Normally distributed sampling by Box-Muller transform
+    u1 = Math.random()
+    u2 = Math.random()
+
+    rs = Math.sqrt(2 * -Math.log(u1))
+    theta = 2 * Math.PI * u2
+
+    randomValue = rs * Math.cos(theta) * std + mean
+
+    if (randomValue > max) randomValue = max
+    else if (randomValue < min) randomValue = min
+
+    return Math.round(randomValue)    
+}
+
+spawnRain({
+    dropSize: PIXEL_SIZE, 
+    fallSpeed: FALL_SPEED, 
+    ctx: ctx,
+})
