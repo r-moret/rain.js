@@ -9,12 +9,21 @@ const COLORS = {
 
 const RECT_SIZE = 10
 
-const spawnDrop = (x, y, size, color, ctx) => {
+const spawnDrop = (xPixel, yPixel, size, color, ctx) => {
     const DROP_LENGTH = 10
+    const x = xPixel * size
+    const y = yPixel * size
+
     for (let tide = 0; tide < DROP_LENGTH; tide++) {
         ctx.fillStyle = color[tide]
-        ctx.fillRect(x, y + (size * tide), size, size)
+        // The x and y mark the coords of the lightest pixel of the drop
+        ctx.fillRect(
+            x, 
+            y + (size * (tide - DROP_LENGTH + 1)), 
+            size, 
+            size,
+        )
     }
 }
 
-spawnDrop(0, 40, RECT_SIZE, COLORS.grey, ctx)
+spawnDrop(1, 0, RECT_SIZE, COLORS.grey, ctx)
