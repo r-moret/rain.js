@@ -2,6 +2,7 @@ const ctx = document.getElementById("canvas").getContext("2d")
 
 const PIXEL_SIZE = 10
 const FALL_SPEED = 65
+const FADING_SPEED = 3
 const COLORS = {
     grey: [
         "#111111","#121212","#131313","#141414","#151515",
@@ -26,12 +27,18 @@ const spawnDrop = (xPixel, yPixel, size, color, ctx) => {
     }
 }
 
-const spanwWave = (wave) => {
+const spanwWave = (wave, fadingTides, ctx) => {
     for (let col = 0; col < wave.drops.length; col++) {
-        let drop = wave.drops[col]
+        const drop = wave.drops[col]
+        const restingTides = drop.end - drop.altitude
 
         if (drop.render) {
+            if (restingTides < fadingTides) {
+                const fadeFactor = 1 / (fadingTides + 1)
+                ctx.globalAlpha = fadeFactor * (1 + restingTides)
+            }
             spawnDrop(col, drop.altitude, drop.size, drop.color, ctx)
+            ctx.globalAlpha = 1
         }
 
         drop.altitude++        
@@ -46,7 +53,7 @@ const spanwWave = (wave) => {
 }
 
 
-const spawnRain = ({wavesGenerators, fallSpeed, ctx}) => {
+const spawnRain = ({wavesGenerators, fadingSpeed, fallSpeed, ctx}) => {
     const nColumns = Math.floor(ctx.canvas.width / PIXEL_SIZE)
 
     const waves = Array.from(wavesGenerators, elem => ({
@@ -66,7 +73,7 @@ const spawnRain = ({wavesGenerators, fallSpeed, ctx}) => {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
         for (let waveIdx = 0; waveIdx < waves.length; waveIdx++) {
-            spanwWave(waves[waveIdx])
+            spanwWave(waves[waveIdx], fadingSpeed, ctx)
         }
     }, fallSpeed)
 }
@@ -102,6 +109,7 @@ spawnRain({
             quantity: 1,
         },
     ],
+    fadingSpeed: FADING_SPEED,
     fallSpeed: FALL_SPEED, 
     ctx: ctx,
 })
