@@ -1,7 +1,7 @@
 const ctx = document.getElementById("canvas").getContext("2d")
 
 const PIXEL_SIZE = 10
-const FALL_SPEED = 50
+const FALL_SPEED = 65
 const COLORS = {
     grey: [
         "#111111","#121212","#131313","#141414","#151515",
@@ -26,31 +26,42 @@ const spawnDrop = (xPixel, yPixel, size, color, ctx) => {
     }
 }
 
-const spawnRain = ({dropSize, fallSpeed, ctx}) => {
-    const newInitialAltitude = () => randomNormal({mean: 2, std: 8})
-    const newAltitude = () => randomNormal({mean: -2, std: 6, max: 0})
-    const newEnd = () => randomNormal({mean: 15, std: 4})
+const spanwWave = (wave) => {
+    for (let col = 0; col < wave.drops.length; col++) {
+        let drop = wave.drops[col]
 
-    const nColumns = Math.floor(ctx.canvas.width / dropSize)
-    let drops = Array.from(Array(nColumns), () => ({
-        altitude: newInitialAltitude(),
-        end: newEnd(),
-        color: COLORS.grey,
+        if (drop.altitude > drop.end) {
+            altitude = wave.generateAltitude()
+
+            drop.altitude = altitude > 0 ? 0 : altitude
+            drop.end = wave.generateEnd()
+        }
+
+        spawnDrop(col, drop.altitude, drop.size, drop.color, ctx)
+        drop.altitude++
+    }
+}
+
+
+const spawnRain = ({wavesGenerators, fallSpeed, ctx}) => {
+    const nColumns = Math.floor(ctx.canvas.width / PIXEL_SIZE)
+
+    const waves = Array.from(wavesGenerators, elem => ({
+        generateAltitude: elem.generateAltitude,
+        generateEnd: elem.generateEnd,
+        drops: Array.from(Array(nColumns), () => ({
+            altitude: elem.generateAltitude(),
+            end: elem.generateEnd(),
+            color: COLORS.grey,
+            size: PIXEL_SIZE,
+        }))
     }))
 
     setInterval(() => {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
-        for (let col = 0; col < nColumns; col++) {
-            let drop = drops[col]
-
-            if (drop.altitude > drop.end) {
-                drop.altitude = newAltitude()
-                drop.end = newEnd()
-            }
-
-            spawnDrop(col, drop.altitude, dropSize, drop.color, ctx)
-            drop.altitude++
+        for (let waveIdx = 0; waveIdx < waves.length; waveIdx++) {
+            spanwWave(waves[waveIdx])
         }
     }, fallSpeed)
 }
@@ -72,7 +83,16 @@ const randomNormal = ({mean, std, min, max}) => {
 }
 
 spawnRain({
-    dropSize: PIXEL_SIZE, 
+    wavesGenerators: [
+        {
+            generateAltitude: () => randomNormal({mean: 0, std: 4}),
+            generateEnd: () => randomNormal({mean: 28, std: 4}),
+        },
+        {
+            generateAltitude: () => randomNormal({mean: 0, std: 1}),
+            generateEnd: () => randomNormal({mean: 5, std: 3}),
+        },
+    ],
     fallSpeed: FALL_SPEED, 
     ctx: ctx,
 })
