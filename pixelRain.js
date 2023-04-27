@@ -2,12 +2,16 @@ const ctx = document.getElementById("canvas").getContext("2d")
 
 const PIXEL_SIZE = 10
 const FALL_SPEED = 65
-const FADING_SPEED = 3
+const FADING_SPEED = 2
 const COLORS = {
     grey: [
         "#111111","#121212","#131313","#141414","#151515",
         "#171717","#191919","#1b1b1b","#1e1e1e","#222222",
-    ]
+    ],
+    yellow: [
+        "#1D1B0F","#29230B" ,"#382F09", "#4C4009", "#685608", 
+        "#7A6507", "#8B7305", "#9C8003", "#AE8F02", "#BF9C00",
+    ],
 }
 
 const spawnDrop = (xPixel, yPixel, size, color, ctx) => {
@@ -63,7 +67,7 @@ const spawnRain = ({wavesGenerators, fadingSpeed, fallSpeed, ctx}) => {
         drops: Array.from(Array(nColumns), () => ({
             altitude: elem.generateAltitude(),
             end: elem.generateEnd(),
-            color: COLORS.grey,
+            color: elem.color,
             size: PIXEL_SIZE,
             render: randomPick(elem.quantity),
         }))
@@ -101,13 +105,21 @@ spawnRain({
         {
             generateAltitude: () => randomNormal({mean: 0, std: 4}),
             generateEnd: () => randomNormal({mean: 25, std: 4}),
-            quantity: 0.3,
+            quantity: 0.25,
+            color: COLORS.grey,
         },
         {
             generateAltitude: () => randomNormal({mean: 0, std: 1}),
             generateEnd: () => randomNormal({mean: 5, std: 3}),
             quantity: 1,
+            color: COLORS.grey,
         },
+        {
+            generateAltitude: () => randomNormal({mean: 0, std: 4}),
+            generateEnd: () => randomNormal({mean: 35, std: 4}),
+            quantity: 0.0025,
+            color: COLORS.yellow,
+        },    
     ],
     fadingSpeed: FADING_SPEED,
     fallSpeed: FALL_SPEED, 
