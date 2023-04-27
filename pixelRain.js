@@ -30,15 +30,18 @@ const spanwWave = (wave) => {
     for (let col = 0; col < wave.drops.length; col++) {
         let drop = wave.drops[col]
 
+        if (drop.render) {
+            spawnDrop(col, drop.altitude, drop.size, drop.color, ctx)
+        }
+
+        drop.altitude++        
         if (drop.altitude > drop.end) {
             altitude = wave.generateAltitude()
 
             drop.altitude = altitude > 0 ? 0 : altitude
             drop.end = wave.generateEnd()
-        }
-
-        spawnDrop(col, drop.altitude, drop.size, drop.color, ctx)
-        drop.altitude++
+            drop.render = randomPick(wave.quantity)
+        }            
     }
 }
 
@@ -49,11 +52,13 @@ const spawnRain = ({wavesGenerators, fallSpeed, ctx}) => {
     const waves = Array.from(wavesGenerators, elem => ({
         generateAltitude: elem.generateAltitude,
         generateEnd: elem.generateEnd,
+        quantity: elem.quantity,
         drops: Array.from(Array(nColumns), () => ({
             altitude: elem.generateAltitude(),
             end: elem.generateEnd(),
             color: COLORS.grey,
             size: PIXEL_SIZE,
+            render: randomPick(elem.quantity),
         }))
     }))
 
@@ -82,15 +87,19 @@ const randomNormal = ({mean, std, min, max}) => {
     return Math.round(randomValue)    
 }
 
+const randomPick = prob => Math.random() < prob
+
 spawnRain({
     wavesGenerators: [
         {
             generateAltitude: () => randomNormal({mean: 0, std: 4}),
-            generateEnd: () => randomNormal({mean: 28, std: 4}),
+            generateEnd: () => randomNormal({mean: 25, std: 4}),
+            quantity: 0.3,
         },
         {
             generateAltitude: () => randomNormal({mean: 0, std: 1}),
             generateEnd: () => randomNormal({mean: 5, std: 3}),
+            quantity: 1,
         },
     ],
     fallSpeed: FALL_SPEED, 
