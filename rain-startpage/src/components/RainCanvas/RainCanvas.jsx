@@ -80,7 +80,7 @@ export function RainCanvas({ width, height, pixelSize = 10, fallSpeed = 65, fade
             }))
         }))
     
-        setInterval(() => {
+        return setInterval(() => {
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     
             for (let waveIdx = 0; waveIdx < waves.length; waveIdx++) {
@@ -92,7 +92,7 @@ export function RainCanvas({ width, height, pixelSize = 10, fallSpeed = 65, fade
     useEffect(() => {
         const ctx = canvasRef.current.getContext("2d")
 
-        spawnRain({
+        const spawnTimer = spawnRain({
             wavesGenerators: [
                 {
                     generateAltitude: () => randomNormal({mean: 0, std: 4}),
@@ -131,7 +131,10 @@ export function RainCanvas({ width, height, pixelSize = 10, fallSpeed = 65, fade
             ctx: ctx,
         })
 
-        return () => ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+        return () => {
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+            clearInterval(spawnTimer)
+        }
     }, [])
 
     return (
