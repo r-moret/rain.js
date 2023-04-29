@@ -9,9 +9,18 @@ const COLORS = {
         "#171717","#191919","#1b1b1b","#1e1e1e","#222222",
     ],
     yellow: [
-        "#1D1B0F","#29230B" ,"#382F09", "#4C4009", "#685608", 
-        "#7A6507", "#8B7305", "#9C8003", "#AE8F02", "#BF9C00",
+        "#222015","#332f1a","#443e1e","#554c22","#665b26",
+        "#776a2b","#88792f","#998833","#bba63c","#ffe14d",        
     ],
+    cyan: [
+        "#152121","#193030","#1c4040","#204f4f","#245f5f",
+        "#286e6e","#2c7e7e","#2f8d8d","#37acac","#46eaea",
+    ],
+    magenta: [
+        "#201521","#2e1930","#3d1c40","#4b204f","#5a245f",
+        "#68286e","#772c7e","#852f8d","#a237ac","#dc46ea",
+        
+    ]
 }
 
 const spawnDrop = (xPixel, yPixel, size, color, ctx) => {
@@ -117,9 +126,21 @@ spawnRain({
         {
             generateAltitude: () => randomNormal({mean: 0, std: 4}),
             generateEnd: () => randomNormal({mean: 35, std: 4}),
-            quantity: 0.0025,
+            quantity: 0.0007,
             color: COLORS.yellow,
         },    
+        {
+            generateAltitude: () => randomNormal({mean: 0, std: 4}),
+            generateEnd: () => randomNormal({mean: 35, std: 4}),
+            quantity: 0.0007,
+            color: COLORS.cyan,
+        },
+        {
+            generateAltitude: () => randomNormal({mean: 0, std: 4}),
+            generateEnd: () => randomNormal({mean: 35, std: 4}),
+            quantity: 0.0007,
+            color: COLORS.magenta,
+        },            
     ],
     fadingSpeed: FADING_SPEED,
     fallSpeed: FALL_SPEED, 
