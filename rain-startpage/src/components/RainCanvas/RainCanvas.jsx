@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { randomNormal, randomPick } from "./random"
 import "./RainCanvas.css"
 
@@ -25,7 +25,7 @@ const COLORS = {
 }
 
 
-export function RainCanvas({ width, height, pixelSize = 10, fallSpeed = 65, fadeSpeed = 2 } = {}) {
+export function RainCanvas({ pixelSize = 10, fallSpeed = 65, fadeSpeed = 2 } = {}) {
     const canvasRef = useRef(null)
 
     const spawnDrop = (xPixel, yPixel, size, color, ctx) => {
@@ -89,8 +89,30 @@ export function RainCanvas({ width, height, pixelSize = 10, fallSpeed = 65, fade
         }, fallSpeed)
     }
 
+    const [dimensions, setDimensions] = useState({
+        width: window.innerWidth, 
+        height: window.innerHeight 
+    })
+
     useEffect(() => {
-        const ctx = canvasRef.current.getContext("2d")
+        const handleResize = () => setDimensions({
+            height: window.innerHeight,
+            width: window.innerWidth,
+        })
+
+        window.addEventListener("resize", handleResize)
+        return () => window.removeEventListener("resize", handleResize)
+    })
+
+    useEffect(() => {
+        const canvas = canvasRef.current
+        const ctx = canvas.getContext("2d")
+
+        canvas.style.width = dimensions.width + "px"
+        canvas.style.height = dimensions.height + "px"
+
+        canvas.width = dimensions.width * window.devicePixelRatio
+        canvas.height = dimensions.height * window.devicePixelRatio
 
         const spawnTimer = spawnRain({
             wavesGenerators: [
@@ -132,12 +154,12 @@ export function RainCanvas({ width, height, pixelSize = 10, fallSpeed = 65, fade
         })
 
         return () => {
-            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
             clearInterval(spawnTimer)
         }
-    }, [])
+    }, [dimensions])
 
     return (
-        <canvas ref={canvasRef} className="rain-canvas" width={width} height={height}></canvas>
+        <canvas ref={canvasRef} className="rain-canvas"></canvas>
     )
 }
