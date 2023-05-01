@@ -1,0 +1,18 @@
+.linkitem {
+    font-size: 1.1rem;
+    font-family: Helvetica;
+    padding: 0.7rem;
+}
+
+.linkitem-container {
+    display: flex;
+    gap: 1.7rem;
+}
+
+.linkitem-title {
+    color: grey
+}
+
+.linkitem-letter {
+    color: white;
+}
