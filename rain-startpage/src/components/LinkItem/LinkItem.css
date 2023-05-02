@@ -1,16 +1,22 @@
 .linkitem {
     font-size: 1.1rem;
     font-family: Helvetica;
-    padding: 0.7rem;
 }
 
 .linkitem-container {
     display: flex;
     gap: 1.7rem;
+    text-decoration: none;
+    padding: 0.7rem;
+}
+
+.linkitem-container:hover .linkitem-title {
+    color: white;
+    transition: all 0.5s;
 }
 
 .linkitem-title {
-    color: grey
+    color: grey;
 }
 
 .linkitem-letter {
