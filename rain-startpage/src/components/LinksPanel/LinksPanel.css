@@ -8,9 +8,39 @@
 
 .linkspanel-panel {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(max-content, 170px));      
+    grid-template-columns: repeat(auto-fill, minmax(max-content, 200px));      
     justify-content: space-between;
     width: 55%;
     list-style-type: none;
     padding: 0;
+}
+
+@media screen and (max-width: 1500px) {
+    .linkspanel-panel {
+        width: 60%;
+    }    
+}
+
+@media screen and (max-width: 1200px) {
+    .linkspanel-panel {
+        width: 65%;
+    }    
+}
+
+@media screen and (max-width: 1000px) {
+    .linkspanel-panel {
+        width: 70%;
+    }   
+}
+
+@media screen and (max-width: 768px) {
+    .linkspanel-panel {
+        width: 80%;
+    }   
+}
+
+@media screen and (max-width: 576px) {
+    .linkspanel-panel {
+        width: 90%;
+    }   
 }
