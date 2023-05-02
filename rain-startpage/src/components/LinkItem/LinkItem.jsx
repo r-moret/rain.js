@@ -1,8 +1,8 @@
 import "./LinkItem.css"
 
-export function LinkItem({ letter, title, key}) {
+export function LinkItem({ letter, title }) {
     return (
-        <li key={key} className="linkitem">
+        <li className="linkitem">
             <div className="linkitem-container">
                 <span className="linkitem-letter">{letter}</span>
                 <span className="linkitem-title">{title}</span>
