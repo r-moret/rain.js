@@ -1,9 +1,6 @@
 .linkspanel {
-    position: absolute;
-    width: 55%;
-    height: 50%;
-    top: 25%;
-    left: 22.5%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,9 +8,9 @@
 
 .linkspanel-panel {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(max-content, 130px));      
+    grid-template-columns: repeat(auto-fill, minmax(max-content, 170px));      
     justify-content: space-between;
-    width: 100%;
+    width: 55%;
     list-style-type: none;
     padding: 0;
 }
