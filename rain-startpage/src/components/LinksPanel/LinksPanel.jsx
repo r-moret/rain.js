@@ -4,7 +4,7 @@ import "./LinksPanel.css"
 export function LinksPanel() {
 
     const elements = [
-        {letter: "d", title: "Discord"},
+        {letter: "d", title: "Sitioconunnombresuperlargo"},
         {letter: "c", title: "ChatGPT"},
         {letter: "s", title: "Slack"},
         {letter: "y", title: "YouTube"},
