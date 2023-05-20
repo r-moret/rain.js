@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { RainCanvas } from "../RainCanvas/RainCanvas.jsx"
 import { LinksPanel } from "../LinksPanel/LinksPanel.jsx"
 import { SearchBar } from "../SearchBar/SearchBar.jsx"
+import { Hideable } from "../Hideable/Hideable.jsx"
 import "./App.css"
 
 export function App() {
@@ -29,7 +30,8 @@ export function App() {
     return (
         <>
             <RainCanvas />
-            {isSearchVisible ? <SearchBar /> : <LinksPanel />}
+            <Hideable shown={isSearchVisible}><SearchBar /></Hideable>
+            <Hideable shown={!isSearchVisible}><LinksPanel /></Hideable>
         </>
     )
 }
