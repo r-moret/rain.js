@@ -8,7 +8,7 @@
 
 .linkspanel-panel {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(max-content, 200px));      
+    grid-template-columns: repeat(auto-fill, minmax(max-content, 170px));      
     justify-content: space-between;
     width: 55%;
     list-style-type: none;
