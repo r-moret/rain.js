@@ -9,7 +9,6 @@ export function SearchBar() {
         const formData = Object.fromEntries(new FormData(event.target).entries())
         const search = formData.search
 
-        event.target.reset()
         window.open(`${SEARCH_QUERY}${search}`, "_self")
     }
 
