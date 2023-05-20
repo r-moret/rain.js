@@ -16,15 +16,15 @@
     background: transparent;
     border: 0;
     border-bottom: 2px solid #444444;
-    color: #777777;
-    font-size: 1.6rem;
+    color: white;
+    font-size: 3rem;
     font-family: Helvetica;
     text-align: center;
 }
 
 .search-input:focus {
     outline: none;
-    border-bottom: 2px solid #666666;
+    border-bottom: 2px solid #777777;
 }
 
 .search-note {
