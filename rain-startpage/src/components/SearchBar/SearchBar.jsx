@@ -16,7 +16,7 @@ export function SearchBar() {
     return (
         <div className="search-panel">
             <form className="search-form" onSubmit={handleSubmit} autoComplete="off">
-                <input type="text" className="search-input" name="search"/>
+                <input type="text" className="search-input" name="search" autoFocus/>
             </form>
             <p className="search-note">press Enter to search</p>
         </div>
