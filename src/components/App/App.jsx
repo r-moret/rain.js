@@ -3,13 +3,15 @@ import { RainCanvas } from "../RainCanvas/RainCanvas.jsx"
 import { LinksPanel } from "../LinksPanel/LinksPanel.jsx"
 import { SearchBar } from "../SearchBar/SearchBar.jsx"
 import { Hideable } from "../Hideable/Hideable.jsx"
-import { Settings } from "../Settings/Settings.jsx"
+import { SettingsIcon } from "../SettingsIcon/SettingsIcon.jsx"
+import { SettingsModal } from "../SettingsModal/SettingsModal.jsx"
 import "./App.css"
 
 import CONFIG from "../../../config.json"
 
 export function App() {
     const [isSearchVisible, setIsSearchVisible] = useState(false)
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false)
 
     const handleKeyDown = () => {
         setIsSearchVisible(true)
@@ -42,8 +44,9 @@ export function App() {
                 </Hideable>
             </main>
             <footer>
-                <Settings />
+                <SettingsIcon setIsOpen={setIsSettingsOpen}/>
             </footer>
+            <Hideable shown={isSettingsOpen}><SettingsModal setIsOpen={setIsSettingsOpen}/></Hideable>
         </>
     )
 }

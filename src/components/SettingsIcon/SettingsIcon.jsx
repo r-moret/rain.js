@@ -1,4 +1,4 @@
-import "./Settings.css"
+import "./SettingsIcon.css"
 
 const SVG_ICON = (
     <svg 
@@ -25,10 +25,10 @@ const SVG_ICON = (
     </svg>      
 )
 
-export function Settings() {
+export function SettingsIcon ({ setIsOpen }) {
 
     const handleClick = () => {
-        alert("Clicked!") // WIP: Modal with configuration options
+        setIsOpen(true)
     }
 
     return (
