@@ -5,6 +5,8 @@ import { SearchBar } from "../SearchBar/SearchBar.jsx"
 import { Hideable } from "../Hideable/Hideable.jsx"
 import "./App.css"
 
+import CONFIG from "../../../config.json"
+
 export function App() {
     const [isSearchVisible, setIsSearchVisible] = useState(false)
 
@@ -31,7 +33,7 @@ export function App() {
         <>
             <RainCanvas />
             <Hideable shown={isSearchVisible}><SearchBar /></Hideable>
-            <Hideable shown={!isSearchVisible}><LinksPanel /></Hideable>
+            <Hideable shown={!isSearchVisible}><LinksPanel links={CONFIG.links}/></Hideable>
         </>
     )
 }
