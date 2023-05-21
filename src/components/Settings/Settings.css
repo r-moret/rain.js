@@ -1,0 +1,17 @@
+.settings-icon {
+    width: 100%;
+    height: auto;
+    fill: grey;
+    transition: all 0.5s;
+}
+
+.settings-icon:hover {
+    fill: white
+}
+
+.settings-button {
+    width: 4rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}

@@ -3,6 +3,7 @@ import { RainCanvas } from "../RainCanvas/RainCanvas.jsx"
 import { LinksPanel } from "../LinksPanel/LinksPanel.jsx"
 import { SearchBar } from "../SearchBar/SearchBar.jsx"
 import { Hideable } from "../Hideable/Hideable.jsx"
+import { Settings } from "../Settings/Settings.jsx"
 import "./App.css"
 
 import CONFIG from "../../../config.json"
@@ -32,8 +33,17 @@ export function App() {
     return (
         <>
             <RainCanvas />
-            <Hideable shown={isSearchVisible}><SearchBar /></Hideable>
-            <Hideable shown={!isSearchVisible}><LinksPanel links={CONFIG.links}/></Hideable>
+            <main>
+                <Hideable shown={isSearchVisible}>\
+                    <SearchBar />
+                </Hideable>
+                <Hideable shown={!isSearchVisible}>
+                    <LinksPanel links={CONFIG.links}/>
+                </Hideable>
+            </main>
+            <footer>
+                <Settings />
+            </footer>
         </>
     )
 }
