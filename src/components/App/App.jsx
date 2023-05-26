@@ -45,7 +45,7 @@ export function App() {
                     <SearchBar />
                 </Hideable>
                 <Hideable shown={!isSearchVisible}>
-                    <LinksPanel links={CONFIG.links}/>
+                    <LinksPanel links={settings.links}/>
                 </Hideable>
             </main>
             <footer>

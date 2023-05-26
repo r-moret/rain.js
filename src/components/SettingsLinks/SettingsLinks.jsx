@@ -25,6 +25,12 @@ export function SettingsLinks({ settings, setSettings}) {
         })
     }
 
+    const handleDeleteClick = (index) => {
+        setSettings(prevSettings => {
+            return {...prevSettings, links: prevSettings.links.toSpliced(index, 1)}
+        })
+    }
+
     return (
         <div className="settings-links-panel">
             <div className="settings-links-list">   
@@ -48,7 +54,7 @@ export function SettingsLinks({ settings, setSettings}) {
                                 placeholder="Link"
                                 onChange={(e) => handleFormChange(idx, e)}
                             />
-                            <div>{SVG_DELETE}</div>
+                            <button onClick={() => handleDeleteClick(idx)}>{SVG_DELETE}</button>
                         </div>                            
                     ))
                 }   

@@ -43,15 +43,19 @@
     outline: none;
 }
 
-.settings-links-item div {
-    width: 1.7rem;
+.settings-links-item button {
+    width: 1.8rem;
+    padding: 0px;
+    margin: 0px;
+    background-color: transparent;
+    border: 0;
 }
 
-.settings-links-item div:hover svg {
+.settings-links-item button:hover svg {
     fill: #C01D1D;
 }
 
-.settings-links-item div svg {
+.settings-links-item button svg {
     width: 100%;
     height: auto;
     fill: grey;
