@@ -14,7 +14,9 @@ export function App() {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false)
 
     const handleKeyDown = () => {
-        setIsSearchVisible(true)
+        if (!isSettingsOpen) {
+            setIsSearchVisible(true)
+        }
     }
 
     const handleInput = (e) => {
@@ -30,13 +32,13 @@ export function App() {
             document.removeEventListener("keydown", handleKeyDown)
             document.removeEventListener("input", handleInput)
         }
-    }, [])
+    }, [isSettingsOpen])
 
     return (
         <>
             <RainCanvas />
             <main>
-                <Hideable shown={isSearchVisible}>\
+                <Hideable shown={isSearchVisible}>
                     <SearchBar />
                 </Hideable>
                 <Hideable shown={!isSearchVisible}>
