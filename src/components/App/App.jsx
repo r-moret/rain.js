@@ -12,6 +12,9 @@ import CONFIG from "../../../config.json"
 export function App() {
     const [isSearchVisible, setIsSearchVisible] = useState(false)
     const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+    const [settings, setSettings] = useState({
+        "links": CONFIG.links
+    })
 
     const handleKeyDown = () => {
         if (!isSettingsOpen) {
@@ -48,7 +51,7 @@ export function App() {
             <footer>
                 <SettingsIcon setIsOpen={setIsSettingsOpen}/>
             </footer>
-            <Hideable shown={isSettingsOpen}><SettingsModal setIsOpen={setIsSettingsOpen}/></Hideable>
+            <Hideable shown={isSettingsOpen}><SettingsModal setIsOpen={setIsSettingsOpen} settings={settings} setSettings={setSettings} /></Hideable>
         </>
     )
 }
