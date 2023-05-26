@@ -1,0 +1,126 @@
+.settings-links-panel {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0rem 3rem;
+    box-sizing: border-box;
+    gap: 0.8rem;
+}
+
+.settings-links-list {
+    background-color: #111111;
+    width: 100%;
+    height: 75%;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 0.5rem 1.5rem;
+    overflow: auto;
+}
+
+.settings-links-item {
+    width: 100%;
+    height: 30px;
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.3rem
+}
+
+.settings-links-item input {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 2px solid grey;
+    color: grey;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.settings-links-item input:focus {
+    outline: none;
+}
+
+.settings-links-item div {
+    width: 1.7rem;
+}
+
+.settings-links-item div:hover svg {
+    fill: #C01D1D;
+}
+
+.settings-links-item div svg {
+    width: 100%;
+    height: auto;
+    fill: grey;
+    transition: all 0.2s;    
+}
+
+.settings-links-input-letter {
+    width: 12.5%;
+}
+
+.settings-links-input-name {
+    width: 27.5%;
+}
+
+.settings-links-input-link {
+    width: 60%;
+}
+
+.settings-links-controls {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    gap: 1rem;
+}
+
+.settings-links-add-button {
+    background-color: #111111;
+    border: 3px solid #111111;
+    border-radius: 6px;    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    cursor: pointer;
+}
+
+.settings-links-add-button:hover {
+    background-color: #444444;
+    border: 3px solid #111111;
+}
+
+.settings-links-add-button p {
+    margin: 0;
+    font-size: 1rem;
+    font-family: Helvetica;
+    color: grey;
+    transition: all 0.2s;
+    font-weight: bold;
+}
+
+.settings-links-add-button:hover p {
+    color: #111111;
+}
+
+.settings-links-add-button div {
+    width: 1.2rem;
+    margin: 0.3rem 0.1rem 0.3rem 0.1rem;
+}
+
+.settings-links-add-button div svg {
+    width: 100%;
+    height: auto;
+    fill: grey;
+    transition: all 0.2s;
+}
+
+.settings-links-add-button:hover div svg {
+    fill: #111111;
+}

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { SettingsLinks } from "../SettingsLinks/SettingsLinks.jsx"
 import "./SettingsModal.css"
 
 export function SettingsModal({ setIsOpen }) {
@@ -6,7 +7,11 @@ export function SettingsModal({ setIsOpen }) {
 
     const closeModal = () => setIsOpen(false)
 
-    const tabs = ["Settings", "Links", "About"]
+    const tabs = [
+        {title: "Settings", component: <></>}, 
+        {title: "Links", component: <SettingsLinks />}, 
+        {title: "About", component: <></>}, 
+    ]
 
     return (
         <>
@@ -15,20 +20,22 @@ export function SettingsModal({ setIsOpen }) {
                 <nav className="settings-nav">
                     <ul>
                         {
-                            tabs.map((elem, idx) => (
+                            tabs.map((tab, idx) => (
                                 <li key={idx}>
                                     <div
                                         className={`settings-tab ${selectedTab == idx && "selected"}`}
                                         onClick={() => setSelectedTab(idx)}
                                     >
-                                        {elem}
+                                        {tab.title}
                                     </div>
                                 </li>
                             ))
                         }
                     </ul>
                 </nav>
-                <article></article>
+                <article className="settings-article">
+                    {tabs[selectedTab].component}
+                </article>
             </section>
         </>
     )
