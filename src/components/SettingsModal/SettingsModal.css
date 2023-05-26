@@ -27,6 +27,7 @@
     width: 20%;
     background-color: #111111;
     padding-top: 0.5rem;
+    border-radius: 8px 0px 0px 8px;
 }
 
 .settings-article {
