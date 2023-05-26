@@ -7,7 +7,7 @@ export function LinksPanel({ links }) {
             <ul className="linkspanel-panel">
                 {
                     links.map((elem, i) => {
-                        return <LinkItem key={i} letter={elem.letter} title={elem.title} link={elem.link}/>
+                        return <LinkItem key={i} title={elem.title} link={elem.link}/>
                     })
                 }
             </ul>

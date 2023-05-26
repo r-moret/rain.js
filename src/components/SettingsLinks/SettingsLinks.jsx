@@ -32,15 +32,6 @@ export function SettingsLinks({ settings, setSettings}) {
                     settings.links.map((item, idx) => (
                         <div key={idx} className="settings-links-item">
                             <input 
-                                className="settings-links-input-letter" 
-                                type="text" 
-                                value={item.letter} 
-                                name="letter" 
-                                placeholder="Letter" 
-                                maxLength="1" 
-                                onChange={(e) => handleFormChange(idx, e)}
-                            />
-                            <input 
                                 className="settings-links-input-title" 
                                 type="text" 
                                 value={item.title} 
