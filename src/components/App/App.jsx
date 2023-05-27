@@ -18,7 +18,15 @@ export function App() {
         if (settingsFromStorage) {
             return JSON.parse(settingsFromStorage)
         }
-        return {links: []}
+        return {
+            datetime: {
+                show: true,
+                include_date: true,
+                include_seconds: false,
+                time_format: "12h",
+            },
+            links: []
+        }
     })
 
     const saveSettings = (settings) => {
@@ -64,11 +72,11 @@ export function App() {
                     <Hideable shown={false}>...</Hideable>
                 </div>
                 <div className="footer-center">
-                    <Hideable shown={true}>
+                    <Hideable shown={settings["datetime"]["show"]}>
                         <Datetime 
-                            showDate={true}
-                            timeFormat="12h"
-                            showSeconds={false}
+                            showDate={settings["datetime"]["include_date"]}
+                            timeFormat={settings["datetime"]["time_format"]}
+                            showSeconds={settings["datetime"]["include_seconds"]}
                         />
                     </Hideable>
                 </div>
