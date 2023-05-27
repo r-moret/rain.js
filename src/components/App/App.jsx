@@ -5,6 +5,7 @@ import { SearchBar } from "../SearchBar/SearchBar.jsx"
 import { Hideable } from "../Hideable/Hideable.jsx"
 import { SettingsIcon } from "../SettingsIcon/SettingsIcon.jsx"
 import { SettingsModal } from "../SettingsModal/SettingsModal.jsx"
+import { Datetime } from "../Datetime/Datetime.jsx"
 import "./App.css"
 
 
@@ -59,7 +60,21 @@ export function App() {
                 </Hideable>
             </main>
             <footer>
-                <SettingsIcon setIsOpen={setIsSettingsOpen}/>
+                <div className="footer-left">
+                    <Hideable shown={false}>...</Hideable>
+                </div>
+                <div className="footer-center">
+                    <Hideable shown={true}>
+                        <Datetime 
+                            showDate={true}
+                            timeFormat="12h"
+                            showSeconds={false}
+                        />
+                    </Hideable>
+                </div>
+                <div className="footer-right">
+                    <SettingsIcon setIsOpen={setIsSettingsOpen}/>
+                </div>
             </footer>
             <Hideable shown={isSettingsOpen}>
                 <SettingsModal 

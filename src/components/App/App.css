@@ -14,5 +14,23 @@ footer {
     bottom: 0;
     width: 100%;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer > div {
+    flex: 1;
+    display: flex;
+}
+
+.footer-left {
+    justify-content: start;
+}
+
+.footer-center {
+    justify-content: center;
+}
+
+.footer-right {
     justify-content: end;
 }

@@ -1,0 +1,14 @@
+.datetime-container {
+    text-align: center;
+}
+
+.datetime-text {
+    color: grey;
+    font-family: Helvetica;
+    font-size: 1.3rem;
+    transition: all 0.4s;
+}
+
+.datetime-text:hover {
+    color: white;
+}
