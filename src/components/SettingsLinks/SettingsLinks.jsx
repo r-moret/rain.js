@@ -1,3 +1,4 @@
+import { useState } from "react"
 import "./SettingsLinks.css"
 
 const SVG_ADD = (
@@ -14,10 +15,12 @@ const SVG_DELETE = (
 
 export function SettingsLinks({ settings, setSettings}) {
 
+    const [modSettings, setModSettings] = useState(settings)
+
     const handleFormChange = (index, e) => {
         const modifiedField = e.target.name
 
-        setSettings(prevSettings => {
+        setModSettings(prevSettings => {
             const newLinks = prevSettings.links
             newLinks[index][modifiedField] = e.target.value
 
@@ -26,16 +29,27 @@ export function SettingsLinks({ settings, setSettings}) {
     }
 
     const handleDeleteClick = (index) => {
-        setSettings(prevSettings => {
+        setModSettings(prevSettings => {
             return {...prevSettings, links: prevSettings.links.toSpliced(index, 1)}
         })
     }
+
+    const handleAddClick = () => {
+        setModSettings(prevSettings => {
+            let newLinks = prevSettings.links
+            newLinks = newLinks.toSpliced(newLinks.length, 0, {"title": "", "link": ""})
+
+            return {...prevSettings, links: newLinks}
+        })
+    }
+
+    const handleSaveClick = () => setSettings(modSettings)
 
     return (
         <div className="settings-links-panel">
             <div className="settings-links-list">   
                 {
-                    settings.links.map((item, idx) => (
+                    modSettings.links.map((item, idx) => (
                         <div key={idx} className="settings-links-item">
                             <input 
                                 className="settings-links-input-title" 
@@ -60,7 +74,11 @@ export function SettingsLinks({ settings, setSettings}) {
                 }   
             </div>
             <div className="settings-links-controls">
-                <button className="settings-links-add-button">
+                <button className="settings-links-add-button" onClick={() => handleSaveClick()}>
+                    <div>{SVG_CONFIRM}</div>
+                    <p>Save links</p>
+                </button>                
+                <button className="settings-links-add-button" onClick={() => handleAddClick()}>
                     <div>{SVG_ADD}</div>
                     <p>Add link</p>
                 </button>                
