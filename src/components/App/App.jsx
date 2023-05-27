@@ -7,14 +7,23 @@ import { SettingsIcon } from "../SettingsIcon/SettingsIcon.jsx"
 import { SettingsModal } from "../SettingsModal/SettingsModal.jsx"
 import "./App.css"
 
-import CONFIG from "../../../config.json"
 
 export function App() {
     const [isSearchVisible, setIsSearchVisible] = useState(false)
     const [isSettingsOpen, setIsSettingsOpen] = useState(false)
-    const [settings, setSettings] = useState({
-        "links": CONFIG.links
+    const [settings, setSettings] = useState(() => {
+        const settingsFromStorage = window.localStorage.getItem("settings")
+
+        if (settingsFromStorage) {
+            return JSON.parse(settingsFromStorage)
+        }
+        return {links: []}
     })
+
+    const saveSettings = (settings) => {
+        setSettings(settings)
+        window.localStorage.setItem("settings", JSON.stringify(settings))
+    }
 
     const handleKeyDown = () => {
         if (!isSettingsOpen) {
@@ -35,7 +44,8 @@ export function App() {
             document.removeEventListener("keydown", handleKeyDown)
             document.removeEventListener("input", handleInput)
         }
-    }, [isSettingsOpen])
+    }, [isSettingsOpen]) // Each time the settings are opened/closed the listener functions 
+                         // are readded with the new value of the state (visible/not visible)
 
     return (
         <>
@@ -51,7 +61,13 @@ export function App() {
             <footer>
                 <SettingsIcon setIsOpen={setIsSettingsOpen}/>
             </footer>
-            <Hideable shown={isSettingsOpen}><SettingsModal setIsOpen={setIsSettingsOpen} settings={settings} setSettings={setSettings} /></Hideable>
+            <Hideable shown={isSettingsOpen}>
+                <SettingsModal 
+                    setIsOpen={setIsSettingsOpen} 
+                    settings={settings} 
+                    saveSettings={saveSettings} 
+                />
+            </Hideable>
         </>
     )
 }
