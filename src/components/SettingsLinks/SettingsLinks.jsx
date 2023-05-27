@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import "./SettingsLinks.css"
 
 const SVG_ADD = (
@@ -17,6 +17,8 @@ export function SettingsLinks({ settings, setSettings }) {
 
     const deepcopy = (object) => JSON.parse(JSON.stringify(object))
     const [modSettings, setModSettings] = useState(settings)
+    const [justAdded, setJustAdded] = useState(false)
+    const linksEndRef = useRef(null)
 
     const handleFormChange = (index, e) => {
         const modifiedField = e.target.name
@@ -42,9 +44,19 @@ export function SettingsLinks({ settings, setSettings }) {
 
             return {...prevSettings, links: newLinks}
         })
+        setJustAdded(true)
     }
 
     const handleSaveClick = () => setSettings(modSettings)
+
+    // Scroll to bottom of the list only when new link is added
+    useEffect(() => {
+        if (justAdded) {
+            linksEndRef.current.scrollIntoView()
+            setJustAdded(false)
+        }
+        
+    }, [justAdded])
 
     return (
         <div className="settings-links-panel">
@@ -72,7 +84,8 @@ export function SettingsLinks({ settings, setSettings }) {
                             <button onClick={() => handleDeleteClick(idx)}>{SVG_DELETE}</button>
                         </div>                            
                     ))
-                }   
+                }
+                <div ref={linksEndRef}/> 
             </div>
             <div className="settings-links-controls">
                 <button className="settings-links-add-button" onClick={() => handleSaveClick()}>
